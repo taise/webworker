@@ -23,8 +23,9 @@
   => console.logが使えない、DOM操作できない
 
 
-#### sample
+#### Sample
 
+##### ui_thread.js
 ```javascript:ui_thread.js
 var worker = new Worker('worker.js');
 worker.postmessage("ui-thread");
@@ -33,6 +34,7 @@ worker.onmessage = function(event) {
 };
 ```
 
+##### worker.js
 ```javascript:worker.js
 self.onmessage = function(event) {
   var msg = "This worker called by " + event.data;
@@ -77,3 +79,4 @@ grunt server
 ```
 
 6. ブラウザが立ち上がって、workerを経由したメッセージがconsole.logに出力される
+
