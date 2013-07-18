@@ -39,3 +39,41 @@ self.onmessage = function(event) {
   self.postMessage(msg);
 };
 ```
+
+### Get starting
+
+#### 必要なもの
+
+* node
+* npm
+* ruby
+* compass
+
+#### commands
+
+1. git clone
+```
+git clone git@github.com:taise/webworker.git
+```
+
+2. package.jsonのモジュールをinstallする
+```
+cd webworker & npm install
+```
+
+3. bower.jsonのモジュールをinstallする
+```
+bower install
+```
+
+4. scss等のコンパイルを実行する
+```
+grunt -f
+```
+
+5. gruntのサーバを起動する
+```
+grunt server
+```
+
+6. ブラウザが立ち上がって、workerを経由したメッセージがconsole.logに出力される
