@@ -18,9 +18,13 @@
 #### 注意点
 
 * workerはUIスレッドとは別のJavaScriptファイルにする
+* Web Workerはサーバからファイルを読み込まなければ実行できない
+  => セキュリティエラーになる
 * workerがさらにworkerを呼べるのは(subworker)Gecko系だけ
 * workerは利用できるオブジェクトや機能が限られている  
   => console.logが使えない、DOM操作できない
+* workerは独立したスレッドのように扱われる
+  => ライブラリを使いたければ、worker側でimportScripts()で読み込む
 
 
 #### Sample
@@ -79,4 +83,20 @@ grunt server
 ```
 
 6. ブラウザが立ち上がって、workerを経由したメッセージがconsole.logに出力される
+
+
+#### その他注意点
+
+* workerでライブラリを読み込むにはimportScripts()を利用する。
+   => workerをnewする毎にライブラリを読み込むため、ブラウザ／サーバともに負荷が高くなる。
+      [毎回ライブラリを読み込むサンプル](https://github.com/taise/webworkerImport)
+
+* require.jsと併用することができる
+   => [UIスレッド](https://github.com/jrburke/requirejs/blob/master/tests/workers.html)
+      [workerスレッド](https://github.com/jrburke/requirejs/blob/master/tests/workers.js)
+      ここの例では、workerスレッドがライブラリ(require.js)を読み込んでいることがわかる
+
+* ただし、場合によってはrequire.js内で使うべきではない
+   => workerスレッド側で再度ライブラリを読み込まなければならないため、  
+      読み込みモジュールが多くなるケースも。
 
